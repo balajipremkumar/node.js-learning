@@ -6,16 +6,16 @@ const geoCode = (address, callback) => {
     encodeURIComponent(address) +
     ".json?access_token=pk.eyJ1IjoiYmFsYWppcHJlYW1rdW1hciIsImEiOiJja2l6ZHNwY3EzeDRjMzNwMzF1NHUzM2JpIn0.mP0sLDX7E5jv5TaZRp495g&limit=1";
 
-  request({ url: url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback("unable to connect to weather service !", undefined);
-    } else if (response.body.features.length === 0) {
+    } else if (body.features.length === 0) {
       callback("unable to find location. Try another search", undefined);
     } else {
       callback(undefined, {
-        latitude: response.body.features[0].center[1],
-        longtitude: response.body.features[0].center[0],
-        location: response.body.features[0].place_name,
+        latitude: body.features[0].center[1],
+        longtitude: body.features[0].center[0],
+        location: body.features[0].place_name,
       });
     }
   });
