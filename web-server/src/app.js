@@ -5,10 +5,18 @@ console.log(__dirname);
 console.log(__filename);
 console.log(path.join(__dirname, "../public"));
 
+// exprss config
 const app = express();
-const publicDirectoryPath = path.join(__dirname, "../public");
 
+// Define paths ofr Express config
+const publicDirectoryPath = path.join(__dirname, "../public");
+const viewPath = path.join(__dirname, "../templates");
+
+// setup handelbars engine & views location
 app.set("view engine", "hbs");
+app.set("views", viewPath);
+
+// setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get("", (req, res) => {
