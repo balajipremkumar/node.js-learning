@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const hbs = require("hbs");
 
 console.log(__dirname);
 console.log(__filename);
@@ -10,18 +11,20 @@ const app = express();
 
 // Define paths ofr Express config
 const publicDirectoryPath = path.join(__dirname, "../public");
-const viewPath = path.join(__dirname, "../templates");
+const viewPath = path.join(__dirname, "../templates/views");
+const partialsPath = path.join(__dirname, "../templates/partials");
 
-// setup handelbars engine & views location
+// setup handelbars engine,views & partials location
 app.set("view engine", "hbs");
 app.set("views", viewPath);
+hbs.registerPartials(partialsPath);
 
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath));
 
 app.get("", (req, res) => {
   res.render("index", {
-    title: "weather App",
+    title: "Weather App",
     name: "Andrew Mead",
   });
 });
@@ -35,15 +38,38 @@ app.get("/about", (req, res) => {
 
 app.get("/help", (req, res) => {
   res.render("help", {
-    title: "Help page",
+    title: "Help ",
     message: "This page will help you with help documents",
+    name: "Balaji premkumar",
   });
 });
 
 app.get("/weather", (req, res) => {
+  if (!req.query.address) {
+    return res.send({
+      error: "you must provide an address!",
+    });
+  }
   res.send({
     forecast: "it is showing",
     location: "hosur",
+    address: req.query.address,
+  });
+});
+
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "balaji preamkumar",
+    errorMessage: "Help article not found.",
+  });
+});
+
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    name: "balaji Preamkumar",
+    errorMessage: "page not found.",
   });
 });
 
