@@ -53,21 +53,24 @@ app.get("/weather", (req, res) => {
     });
   }
 
-  geocode(req.query.address, (error, { latitude, longtitude, location }) => {
-    if (error) {
-      return res.send({ error });
-    }
-    forecast(latitude, longtitude, (error, forecastData) => {
+  geocode(
+    req.query.address,
+    (error, { latitude, longtitude, location } = {}) => {
       if (error) {
         return res.send({ error });
       }
-      res.send({
-        forecast: forecastData,
-        location,
-        address: req.query.address,
+      forecast(latitude, longtitude, (error, forecastData) => {
+        if (error) {
+          return res.send({ error });
+        }
+        res.send({
+          forecast: forecastData,
+          location,
+          address: req.query.address,
+        });
       });
-    });
-  });
+    }
+  );
 });
 
 app.get("/help/*", (req, res) => {
