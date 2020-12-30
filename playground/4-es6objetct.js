@@ -25,8 +25,10 @@ const product = {
 // console.log(topModel, varient);
 // console.log(rating);
 
-const transaction = (type, { varient, model }) => {
+const transaction = (type, { varient = "midrange", model = "suv" } = {}) => {
   console.log(type, varient, model);
 };
 
 transaction("order", product);
+
+// transaction("order");
