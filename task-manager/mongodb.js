@@ -80,5 +80,93 @@ MongoClient.connect(
     //     console.log(result.ops);
     //   }
     // );
+    // db.collection("users").findOne({ name: "DAB" }, (error, res) => {
+    //   if (error) {
+    //     console.log("Unable to fetch");
+    //   }
+    //   console.log(res);
+    // });
+
+    // db.collection("users")
+    //   .find({ age: 29 })
+    //   .toArray((error, users) => {
+    //     if (error) {
+    //       console.log("Unable to fetch");
+    //     }
+    //     console.log(users);
+    //   });
+
+    // db.collection("tasks")
+    //   .find({ description: "learing node js" })
+    //   .toArray((error, res) => {
+    //     if (error) {
+    //       console.log("Unable to Fetch");
+    //     }
+    //     console.log(res);
+    //   });
+
+    // db.collection("tasks").findOne(
+    //   { _id: new ObjectID("5fecf5fe7bc5c836d83458aa") },
+    //   (error, res) => {
+    //     if (error) {
+    //       console.log("Unable to fetch data");
+    //     }
+    //     console.log(res);
+    //   }
+    // );
+
+    // db.collection("users")
+    //   .updateOne(
+    //     { _id: new ObjectID("5feceeb7f97d580cc46fc749") },
+    //     {
+    //       $set: {
+    //         name: "premkumar",
+    //       },
+    //     }
+    //   )
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // db.collection("tasks")
+    //   .updateMany(
+    //     { condition: true },
+    //     {
+    //       $set: {
+    //         condition: false,
+    //       },
+    //     }
+    //   )
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // db.collection("users")
+    //   .deleteMany({
+    //     age: 29,
+    //   })
+    //   .then((result) => {
+    //     console.log(result);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    db.collection("tasks")
+      .deleteOne({
+        description: "undestanding javascript",
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 );
